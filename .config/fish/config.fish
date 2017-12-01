@@ -30,6 +30,8 @@ alias ....='cd ../../../'
 alias .....='cd ../../../../'
 
 alias ld="ls -l | grep '^d'" #lsdirs
+# edit vimrc
+alias ev="nvim ~/.nvimrc"
 
 alias vim='nvim'
 alias v='nvim'

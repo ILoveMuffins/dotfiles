@@ -1,6 +1,13 @@
 
 call plug#begin('~/.nvim/plugged')
 
+Plug 'AndrewRadev/sideways.vim', { 'on': ['SidewaysLeft', 'SidewaysRight'] }
+" ten plugin automatycznie robi :set paste! podczas uzywania C-v w insert mode
+Plug 'ConradIrwin/vim-bracketed-paste'
+" wywietlanie informacji git diff w edytowanym pliku, tuz obok linii wiersza
+" TODO konfiguracja
+Plug 'airblade/vim-gitgutter'
+Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'gioele/vim-autoswap'
 Plug 'joonty/vdebug'
@@ -114,9 +121,30 @@ let g:NERDTrimTrailingWhitespace = 1
 " Use deoplete.
 "let g:deoplete#enable_at_startup = 1
 
+" Sideways plugin
+nmap <C-h>l :SidewaysLeft<CR>
+nmap <C-j>h :SidewaysRight<CR>
+
 " space-c komentuje/odkomentowuje linijke/zaznaczenie
 nmap <space>c <plug>NERDCommenterToggle
 vmap <space>c <plug>NERDCommenterToggle
+
+" lightline plugin
+" TODO dodac np fugitive (na github tego pluginu w docs jest opisane)
+" lub jakies inne info z pluginow, bo :marks czy :registers za duzo info
+" wyswietlaja
+let g:lightline = {
+    \     'active': {
+    \ 'left': [ [ 'mode', 'paste' ],
+    \           [ 'readonly', 'modified' ] ],
+    \         'right': [ [ 'lineinfo' ], [ 'percent' ] ]
+    \     },
+    \     'colorscheme': 'seoul256',
+    \ }  
+"   'inactive' {
+"       'left': [ [ 'filename' ] ],
+"       'right': [ [ 'lineinfo' ], [ 'percent' ] ] 
+"   }
 
 " Auto-Pairs  ----------------------------------------------------
 "let g:AutoPairsFlyMode = 1
@@ -199,6 +227,8 @@ function! CloseProperly(save)
 
    if len(filter(range(bufnr('$')), 'buflisted(v:val)'))
       exec 'bdelete!'
+   else if winnr('$') == 1:
+      exec 'bdelete!'
    else
       exec 'quit!'
    endif
@@ -223,9 +253,6 @@ nnoremap <leader>tts :bd\|vnew<space>
 " jw. ale podmieniamy split na pusty
 nnoremap <leader>ttn :bd\|vnew<cr>
 
-nnoremap <C-h> :bprev<cr>
-nnoremap <C-j> :bnext<cr>
-
 let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
 "let g:buftabline_separator = 1
@@ -249,7 +276,7 @@ nnoremap , <c-w>w
 " a gdy wkleimy wylaczyc
 " Toggle paste mode on and off
 " TODO  mozna to poprawic by sie wyswietlalo info czy mam paste set czy nie
-map <leader>pp :setlocal paste!<cr>
+"map <leader>pp :setlocal paste!<cr>
 "map <F10> :set invpaste<CR> " to chyba tak samo dziala
 
 
