@@ -6,14 +6,13 @@ set -x EDITOR vim
 fish_default_key_bindings
 
 # kolorowanie plikow man
-#set -gx LESS_TERMCAP_mb \e"[01;31m"
-#set -gx LESS_TERMCAP_md \e"[01;31m"
-#set -gx LESS_TERMCAP_me \e"[0m"
-#set -gx LESS_TERMCAP_se \e"[0m"
-#set -gx LESS_TERMCAP_so \e"[01;44;33m"
-#set -gx LESS_TERMCAP_ue \e"[0m"
-#set -gx LESS_TERMCAP_us \e"[01;32m"
-# robie to pluginem colorman
+set -gx LESS_TERMCAP_mb \e"[01;31m"
+set -gx LESS_TERMCAP_md \e"[01;31m"
+set -gx LESS_TERMCAP_me \e"[0m"
+set -gx LESS_TERMCAP_se \e"[0m"
+set -gx LESS_TERMCAP_so \e"[01;44;33m"
+set -gx LESS_TERMCAP_ue \e"[0m"
+set -gx LESS_TERMCAP_us \e"[01;32m"
 
 alias wttr='curl wttr.in/Warsaw'
 alias d='docker'
