@@ -46,7 +46,6 @@ call plug#end()
 
 " dzieki tej opcji, skrot: <C-x><C-o> przeszukuje ... <nwm co> i podpowiada
 set omnifunc=syntaxcomplete#Complete
-
 set autochdir
 set autoread
 set backspace=indent,eol,start
@@ -125,9 +124,13 @@ let g:NERDTrimTrailingWhitespace = 1
 nmap <C-h>l :SidewaysLeft<CR>
 nmap <C-j>h :SidewaysRight<CR>
 
-" space-c komentuje/odkomentowuje linijke/zaznaczenie
-nmap <space>c <plug>NERDCommenterToggle
-vmap <space>c <plug>NERDCommenterToggle
+" poruszanie po tabach(buforach) vim-buftabline
+nnoremap <S-k> :bprev<CR>
+nnoremap <S-l> :bnext<CR>
+
+" space-space komentuje/odkomentowuje linijke/zaznaczenie
+nmap <space><space> <plug>NERDCommenterToggle
+vmap <space><space> <plug>NERDCommenterToggle
 
 " lightline plugin
 " TODO dodac np fugitive (na github tego pluginu w docs jest opisane)
@@ -238,23 +241,23 @@ function! CloseProperly(save)
 endfunction
 
 " otworz plik w nowym oknie
-nnoremap <leader>tnn :e<space>
+nnoremap <leader>t :e<space>
 " otworz nowe okno
-nnoremap <leader>tn :enew<cr>
+nnoremap <leader>tt :enew<cr>
 " otworz plik w splicie
-nnoremap <leader>ss :vnew<space>
+nnoremap <leader>s :vnew<space>
 " otworz nowy pusty split
-nnoremap <leader>s :vnew<cr>
+nnoremap <leader>ss :vnew<cr>
 
 nnoremap ZZ :call CloseProperly(1)<cr>
 nnoremap ZQ :call CloseProperly(0)<cr>
 
 " podmien plik w obecnym oknie
-nnoremap <leader>tt :bd\|e<space>
+nnoremap <leader>ssc :bd\|e<space>
 " jw. ale podmieniamy tylko split
-nnoremap <leader>tts :bd\|vnew<space>
+nnoremap <leader>sc :bd\|vnew<space>
 " jw. ale podmieniamy split na pusty
-nnoremap <leader>ttn :bd\|vnew<cr>
+nnoremap <leader>scc :bd\|vnew<cr>
 
 let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
@@ -301,13 +304,13 @@ nnoremap gb L
 
 " nie zrob tutaj '-nore-' bo 'dh' nie zadziala tak jak 'd^' !!!
 map h g^
-"map <C-h> g0 "zajete juz do chodzenia po zakladkach
+"map <C-h> g0
 map H g$
 vmap H g_
 nnoremap <CR> G
 nnoremap <BS> gg
-nnoremap L >>
-vnoremap L >>
+"nnoremap L >>
+"voremap L >>
 
 " U - cofa zmiany dla calej linii, rzadko przydatne, <c-r> dziala lepiej
 nnoremap U <c-r> 
