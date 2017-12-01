@@ -135,12 +135,16 @@ vmap <space>c <plug>NERDCommenterToggle
 " wyswietlaja
 let g:lightline = {
     \     'active': {
-    \ 'left': [ [ 'mode', 'paste' ],
+    \ 'left': [ [ 'mode', 'paste', 'gitbranch' ],
     \           [ 'readonly', 'modified' ] ],
     \         'right': [ [ 'lineinfo' ], [ 'percent' ] ]
     \     },
     \     'colorscheme': 'seoul256',
-    \ }  
+    \     'component_function': {
+    \         'gitbranch': 'fugitive#head'
+    \     }
+    \ }
+" TODO usun to, jesli statusline nie sprawia problemow
 "   'inactive' {
 "       'left': [ [ 'filename' ] ],
 "       'right': [ [ 'lineinfo' ], [ 'percent' ] ] 
@@ -225,9 +229,8 @@ function! CloseProperly(save)
       exec 'w'
    endif
 
-   if len(filter(range(bufnr('$')), 'buflisted(v:val)'))
-      exec 'bdelete!'
-   else if winnr('$') == 1:
+   " jesli wszystkich buforow jest wiecej niz 1
+   if len(filter(range(bufnr('$')), 'buflisted(v:val)')) > 1
       exec 'bdelete!'
    else
       exec 'quit!'
