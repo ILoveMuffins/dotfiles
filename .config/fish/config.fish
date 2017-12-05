@@ -32,8 +32,8 @@ alias ld="ls -l | grep '^d'" #lsdirs
 # edit vimrc
 alias ev="nvim ~/.nvimrc"
 
-alias vim='nvim'
-alias v='nvim'
+alias vim='nvim -O'
+alias v='nvim -O'
 alias md='mkdir -p'
 alias rd='rm -rf'
 alias mk='make'

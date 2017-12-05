@@ -1,44 +1,54 @@
 
 call plug#begin('~/.nvim/plugged')
 
+" przemieszanie kolejnosci argumentow pod kursorem przy uzyciu C-h C-j
 Plug 'AndrewRadev/sideways.vim', { 'on': ['SidewaysLeft', 'SidewaysRight'] }
 " ten plugin automatycznie robi :set paste! podczas uzywania C-v w insert mode
 Plug 'ConradIrwin/vim-bracketed-paste'
 " wywietlanie informacji git diff w edytowanym pliku, tuz obok linii wiersza
-" TODO konfiguracja
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'gioele/vim-autoswap'
-Plug 'joonty/vdebug'
+">>>>>>>>>>>>>>>>>>>>>>>> te przejrzyj na gicie, moze cos skonfigurujesz
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
-Plug 'easymotion/vim-easymotion'
 Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} " wymagany przez 'tsuquyomi'
-"Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} "fajne, ale TODO 
 Plug 'Quramy/tsuquyomi'
-Plug 'jason0x43/vim-js-indent'
+Plug 'easymotion/vim-easymotion'
+"<<<<<<<<<<<<<<<<<<<<<<<<<
 Plug 'ap/vim-buftabline'
+
+"te 3 pluginy robia podobne zadania
+"Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " TODO, wymaga +python
+"Plug 'Valloric/YouCompleteMe' " TODO skonfiguruj jak 'jedi' dla wielu jezykow, wymaga python
+"Plug 'davidhalter/jedi-vim' " fajne ale TODO nie mam vima kompilowanego z '+python'
+
+" istotne pluginy
+"Plug 'scrooloose/syntastic'
+"Plug 'joonty/vdebug'  " TODO +python +tabs +signs ; nvim --version #pokazuje flagi kompilacji
+"
 "Plug 'vim-airline/vim-airline' " dziala, ale te informacje wyswietlane malo przydatne
     "slabo sobie radzi z podzielonym ekranem, trzeba czcionki dociagnac
 "Plug 'vim-airline/vim-airline-themes'
+"
+" >>>>>>>>>>>>>>>>>>>>>>>>
+"Plug 'jason0x43/vim-js-indent'
 "Plug 'honza/vim-snippets'
 "Plug 'mileszs/ack.vim' " fajne ale TODO instalacja niedokonczona
-"Plug 'scrooloose/syntastic'
-"Plug 'davidhalter/jedi-vim'
+"https://github.com/davidhalter/jedi-vim/blob/master/doc/jedi-vim.txt
 "Plug 'scrooloose/nerdtree'
 "Plug 'Nopik/vim-nerdtree-direnter'
 "Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'posva/vim-vue'
 "Plug 'SirVer/ultisnips'
 "Plug 'hdima/python-syntax' " TODO
-"Plug 'Valloric/YouCompleteMe' " TODO skonfiguruj
 "Plug 'terryma/vim-expand-region' " mysle ze to slabe
-"Plug 'bkad/CamelCaseMotion' " wylaczony
+"Plug 'bkad/CamelCaseMotion'
 
 call plug#end()
 
@@ -121,8 +131,8 @@ let g:NERDTrimTrailingWhitespace = 1
 "let g:deoplete#enable_at_startup = 1
 
 " Sideways plugin
-nmap <C-h>l :SidewaysLeft<CR>
-nmap <C-j>h :SidewaysRight<CR>
+nmap <C-h> :SidewaysLeft<CR>
+nmap <C-j> :SidewaysRight<CR>
 
 " poruszanie po tabach(buforach) vim-buftabline
 nnoremap <S-k> :bprev<CR>
@@ -165,19 +175,19 @@ hi link EasyMotionShade  Comment
 map \ <Plug>(easymotion-prefix)
 
 " <Leader>f{char} to move to {char}
-map <Leader>f <Plug>(easymotiono-bd-f)
+"map <Leader>f <Plug>(easymotiono-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 
 " s{char}{char} to move to {char}{char}
 nmap <Leader>s <Plug>(easymotion-overwin-f2)
 
 " Move to line
-map <Leader>l <Plug>(easymotion-bd-jk)
+"map <Leader>l <Plug>(easymotion-bd-jk)
 nmap <Leader>l <Plug>(easymotion-overwin-line)
 
 " Move to word
-map <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+"map <Leader>w <Plug>(easymotion-bd-w)
+"nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " UltiSnips ------------------------------------------------------
 "TODO
@@ -437,7 +447,7 @@ let g:user_emmet_leader_key='<C-Y>'
 " konfiguracja plugin'u jedi-vim - autouzupelnianie dla python'a
 "let g:jedi#use_tabs_not_buffers = 1
 "konflikt byl dla <leader>d \/ \/ \/
-"let g:jedi#goto_command = "<leader>G" 
+"let g:jedi#goto_comman = "<leader>G" 
 "let g:jedi#goto_assignments_command = "<leader>g"
 "let g:jedi#goto_definitions_command = ""
 "let g:jedi#documentation_command = "K"
@@ -552,16 +562,18 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 " aby kopiowanie w VIMie uzywalo systemowego schowka
 " nie uzywac - po uzyciu skrotow takich jak: dfs, diw nie da sie wkleic
-" function! ClipboardYank()
-"     call system('xclip -i -selection clipboard', @@)
-" endfunction
-" function! ClipboardPaste()
-"     let @@ = system('xclip -o -selection clipboard')
-" endfunction
+function! ClipboardYank()
+     call system('xclip -i -selection clipboard', @@)
+endfunction
+function! ClipboardPaste()
+     let @@ = system('xclip -o -selection clipboard')
+endfunction
 
-"vnoremap <silent> y y:call ClipboardYank()<cr>
-"vnoremap <silent> d d:call ClipboardYank()<cr>
-"nnoremap <silent> p :call ClipboardPaste()<cr>p
+" TODO 
+nnoremap <silent> <leader>y yy:call ClipboardYank()<cr>
+nnoremap <silent> <leader>p :call ClipboardPaste()<cr>p
+vnoremap <silent> <leader>y y:call ClipboardYank()<cr>
+vnoremap <silent> <leader>d d:call ClipboardYank()<cr>
 "onoremap <silent> y y:call ClipboardYank()<cr>
 "onoremap <silent> d d:call ClipboardYank()<cr>
 "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
